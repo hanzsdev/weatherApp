@@ -24,15 +24,27 @@ async function checkWeather(city) {
 
     function changeIcon () {
 
-        if (data.weather[0].main == 'Clear sky') {
+        if (data.weather[0].description == 'clear sky') {
             weatherIcon.setAttribute("src", "images/clear-sky.png");
-        } else if (data.weather[0].description == 'Clouds') {
+        } else if (data.weather[0].description == 'few clouds') {
             weatherIcon.setAttribute("src", "images/few-clouds.png");
         } else if (data.weather[0].description == 'broken clouds' || data.weather[0].description == 'overcast clouds') {
-            weatherIcon.setAttribute("src", "images/broken-clouds.png")
+            weatherIcon.setAttribute("src", "images/broken-clouds.png");
         } else if (data.weather[0].description == 'scattered clouds') {
-            weatherIcon.setAttribute("src", "images/scattered-clouds.png")
-        } 
+            weatherIcon.setAttribute("src", "images/scattered-clouds.png");
+        } else if (['mist', 'smoke', 'haze', 'sand/dust whirls', 'fog', 'sand', 'dust', 'volcanic ash', 'squalls', 'tornado'].includes(data.weather[0].description)) {
+            weatherIcon.setAttribute("src", "images/haze.png");
+        } else if (data.weather[0].main == 'Snow') {
+            weatherIcon.setAttribute("src", "images/snow.png");
+        } else if (['moderate rain', 'heavy intensity rain', 'very heavy rain', 'extreme rain',
+             'freezing rain', 'light intensity shower rain', 'shower rain', 
+             'heavy intensity shower rain', 'ragged shower rain'].includes(data.weather[0].description)) {
+                weatherIcon.setAttribute("src", "images/rain.png");
+        } else if (data.weather[0].description == 'light rain' || data.weather[0].main == 'Drizzle') {
+            weatherIcon.setAttribute("src", "images/light-rain");
+        } else if (data.weather[0].main == 'Thunderstorm') {
+            weatherIcon.setAttribute("src", "images/thunderstorm.png");
+        }
     };
 
     changeIcon();

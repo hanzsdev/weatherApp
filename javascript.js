@@ -5,7 +5,19 @@ async function checkWeather() {
     const response = await fetch(apiUrl + `&appid=${apiKey}`);
     const data = await response.json();
 
-    console.log(data.wind.speed);
+    console.log(data);
+
+    const cityName = document.querySelector(".city");
+    cityName.innerHTML = data.name;
+
+    const temp = document.querySelector(".temp");
+    temp.innerHTML = Math.floor(data.main.temp) + "°C";
+
+    const humidity = document.querySelector(".humidity");
+    humidity.innerHTML = Math.floor(data.main.humidity) + " %";
+
+    const windSpeed = document.querySelector(".wind");
+    windSpeed.innerHTML = Math.floor(data.wind.speed) + " Km/h";
 };
 
 checkWeather();

@@ -1,11 +1,37 @@
 const apiKey = "4145e20d54efe66b564e9351fbbd9af0";
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
 
+const forecastApiKey = "7b7922cbf532c3c35a45d90337a963a9";
+const forceastApiUrl = "http://api.openweathermap.org/data/2.5/forecast?units=metric&q="
+
+
+async function fiveDayForecast(city) {
+    const forecastResponse = await fetch(forceastApiUrl + city + `&appid=${forecastApiKey}`)
+    const forecastData = await forecastResponse.json();
+
+    // const convert = JSON.parse(forecastData);
+    console.log(forecastData);
+    console.log(forecastData.list[0]);
+
+    // Data received back 5 day forcast that is split between 8 arrays each for 1 day totalling 40 arrays. 
+    // Loop through arrays and seperate by each day so 8 arrays. If dt_text === dt_text same day then group them.
+    // Aggregate data, get the average tempreture and average weather main condition. 
+    // Link data to UI 
+
+    const dt = forecastData.list[0].dt;
+    console.log(dt);
+
+};
+
+
 async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
     const data = await response.json();
-    console.log(data);
-    console.log(response);
+    // console.log(data);
+    // console.log(response);
+
+    // const unix = 1720915200;
+    // console.log(new Date(unix*1000));
 
     const exisistingError = document.querySelector(".error-message");
 
@@ -35,7 +61,6 @@ async function checkWeather(city) {
 
     };
 
-
     const cityName = document.querySelector(".city");
     cityName.innerHTML = data.name;
 
@@ -50,7 +75,7 @@ async function checkWeather(city) {
 
     const weatherIcon = document.querySelector(".weather-icon");
     
-    console.log(data.weather[0].description);
+    // console.log(data.weather[0].description);
 
     function changeIcon () {
 
@@ -87,6 +112,7 @@ const searchBtn = document.querySelector(".search-button");
 searchBtn.addEventListener("click", () => {
    
     checkWeather(cityInput.value);
+    fiveDayForecast(cityInput.value);
 
 });
 

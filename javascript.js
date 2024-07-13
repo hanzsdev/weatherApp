@@ -5,6 +5,36 @@ async function checkWeather(city) {
     const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
     const data = await response.json();
     console.log(data);
+    console.log(response);
+
+    const exisistingError = document.querySelector(".error-message");
+
+    if (response.status == 200) {
+
+        const displayWeather = document.querySelector(".weather");
+        displayWeather.classList.toggle("weather");
+
+        if(exisistingError) {
+            exisistingError.parentElement.removeChild(exisistingError);
+        }
+
+    } else if (response.status == 404) {
+
+        const searchContainer = document.querySelector(".search-container"); 
+
+        if(!exisistingError) {
+
+            const div = document.createElement("div");
+            const errorMessage = document.createElement("p");
+            errorMessage.classList.add("error-message");
+            errorMessage.textContent = "Please enter a valid city name";
+        
+            div.appendChild(errorMessage);
+            searchContainer.after(div);
+        }
+
+    };
+
 
     const cityName = document.querySelector(".city");
     cityName.innerHTML = data.name;
@@ -50,11 +80,12 @@ async function checkWeather(city) {
     changeIcon();
 };
 
+
 const cityInput = document.querySelector(".input");
 const searchBtn = document.querySelector(".search-button");
 
 searchBtn.addEventListener("click", () => {
-    
+   
     checkWeather(cityInput.value);
 
 });

@@ -95,3 +95,15 @@ body {
     font-size: 24px;
     margin-top: -6px;
 }
+
+.weather {
+    display: none;
+}
+
+.error-message {
+    color: whitesmoke;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-size: 12px;
+}
